@@ -1,0 +1,82 @@
+using System.Net.Cache;
+using System.Numerics;
+using System.Xml.Schema;
+
+namespace DotNet_task1
+{
+
+     class Vehicle
+    {
+        protected string brand;
+        protected int model ,rentalpriceperday;
+
+        protected Vehicle(string brand_name,int model,int rentalpriceperday)
+        {
+            this.brand = brand_name;
+            this.model = model;
+            this.rentalpriceperday = rentalpriceperday;
+        }
+        int calculaterentalcost(int days)
+        {
+            return rentalpriceperday * days;
+        }
+
+    }
+    class Car : Vehicle
+    {
+        long  days_need = 0;
+        public Car(string brand_name, int model,int rentdays) : base(brand_name, model, 2000)
+        {
+            days_need = DateTimeOffset.Now.ToUnixTimeSeconds()+rentdays*24*60*60;
+        }
+        int calculaterentalcost(int days)
+        {
+            if(DateTimeOffset.Now.ToUnixTimeSeconds() > days_need)
+            {
+                return rentalpriceperday * days + 500;
+            }
+            return rentalpriceperday * days;
+        }
+    }
+    class Bike : Vehicle
+    {
+        long days_need = 0;
+        public Bike(string brand_name, int model, int rentdays) : base(brand_name, model, 1000)
+        {
+            days_need = DateTimeOffset.Now.ToUnixTimeSeconds() + rentdays * 24 * 60 * 60;
+        }
+        int calculaterentalcost(int days)
+        {
+            if (DateTimeOffset.Now.ToUnixTimeSeconds() > days_need)
+            {
+                return rentalpriceperday * days + 200;
+            }
+            return rentalpriceperday * days;
+        }
+    }
+    class Truck : Vehicle
+    {
+        long days_need = 0;
+        public Truck(string brand_name, int model,int rentdays) : base(brand_name, model, 3000)
+        {
+            days_need = DateTimeOffset.Now.ToUnixTimeSeconds() + rentdays * 24 * 60 * 60;
+
+        }
+        int calculaterentalcost(int days)
+        {
+            if (DateTimeOffset.Now.ToUnixTimeSeconds() > days_need)
+            {
+                return rentalpriceperday * days + 1000;
+            }
+            return rentalpriceperday * days;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine();
+
+        }
+    }
+}
